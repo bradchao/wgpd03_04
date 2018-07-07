@@ -1,4 +1,6 @@
+var var2 = 321;
 var MenuLayer = cc.Layer.extend({
+    item2:null,
     ctor:function () {
         this._super();
 
@@ -28,7 +30,7 @@ var MenuLayer = cc.Layer.extend({
         cc.director.pushScene(new Item1Scene());
     },
     doItem2: function () {
-        cc.log("doItem2");
+        cc.director.pushScene(new Item2Scene(100));
     },
     doItem3: function () {
         cc.log("doItem3");
