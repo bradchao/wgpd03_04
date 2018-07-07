@@ -33,7 +33,7 @@ var MenuLayer = cc.Layer.extend({
         cc.director.pushScene(new Item2Scene(100));
     },
     doItem3: function () {
-        cc.log("doItem3");
+        cc.director.pushScene(new Item3Scene());
     },
     doItem4: function () {
         cc.log("doItem4");
