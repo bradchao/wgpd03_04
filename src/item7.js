@@ -1,16 +1,17 @@
 var Item7Layer = cc.Layer.extend({
     ball:null,
     bricks:null,
+    bricksRect:null,
     ctor:function () {
         this._super();
 
         this.ball = new Ball(res.ball_png);
         this.ball.x = cc.winSize.width/2;
         this.ball.y = cc.winSize.height/2;
-        this.ball.setXY(4,4)
+        this.ball.setXY(4,-6)
         this.addChild(this.ball);
 
-        this.bricks = [];
+        this.bricks = []; this.bricksRect = [];
         for (var i=0; i<20; i++){
             this.bricks[i] = new cc.Sprite(res.brick_png);
             this.bricks[i].attr({
@@ -18,6 +19,15 @@ var Item7Layer = cc.Layer.extend({
                 y: cc.winSize.height * 6 / 8
             });
             this.addChild(this.bricks[i]);
+
+            this.bricksRect[i] = new cc.Rect(
+                this.bricks[i].x - this.bricks[i].width/2 - this.ball.width/2,
+                this.bricks[i].y - this.bricks[i].height/2 - this.ball.height/2,
+                this.bricks[i].width + this.ball.width,
+                this.bricks[i].height + this.ball.height
+            );
+
+
         }
 
         this.ball.schedule(this.ballUpdate, 0.01, cc.RepeatForever,1 );
@@ -29,6 +39,35 @@ var Item7Layer = cc.Layer.extend({
        // move
         // this is-a ball: schedule node
         var layer = this.getParent();
+
+        for (var i=0; i<layer.bricks.length; i++){
+            if (cc.rectContainsPoint(
+                layer.bricksRect[i],
+                new cc.Point(this.x, this.y))){
+
+                if (this.y>=layer.bricks[i].y-layer.bricks[i].height &&
+                this.y <= layer.bricks[i].y + layer.bricks[i].height){
+                    this.dy *= -1;
+                    layer.removeChild(layer.bricks[i]);
+                    layer.bricks.splice(i,1);
+                    layer.bricksRect.splice(i,1)
+                    break;
+
+                }else if (this.x>=layer.bricks[i].x-layer.bricks[i].width &&
+                    this.x <= layer.bricks[i].x + layer.bricks[i].width){
+                    this.dx *= -1;
+                    layer.removeChild(layer.bricks[i]);
+                    layer.bricks.splice(i,1);
+                    layer.bricksRect.splice(i,1)
+                    break;
+
+                }else{
+
+                }
+
+            }
+        }
+
 
         if (this.x - this.width/2 <= 0 ||
             this.x + this.width/2 >= cc.winSize.width){
