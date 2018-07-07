@@ -29,6 +29,8 @@ var res = {
     back_disselect_png : "res/back_disselect.png",
     bg_jpeg : "res/bg.jpeg",
     ball_png : "res/ball.png",
+    bullet_png : "res/bullet.png",
+    brick_png : "res/brick.png",
 };
 
 var g_resources = [];
