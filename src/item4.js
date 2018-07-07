@@ -34,16 +34,27 @@ var Item4Layer = cc.Layer.extend({
     },
 
     next1: function(){
-        cc.director.pushScene(new Item41Scene());
+        cc.director.pushScene(
+            new cc.TransitionFadeTR(10, new Item41Scene())
+        );
     },
     next2: function(){
-        cc.director.pushScene(new Item41Scene());
+        cc.director.pushScene(
+            new cc.TransitionJumpZoom(3, new Item41Scene())
+        );
     },
     next3: function(){
-        cc.director.pushScene(new Item41Scene());
+        cc.director.pushScene(
+            new cc.TransitionCrossFade(3, new Item41Scene())
+        );
     },
     next4: function(){
-        cc.director.pushScene(new Item41Scene());
+        cc.director.pushScene(
+            new cc.TransitionProgressRadialCW(3, new Item41Scene())
+        );
+    },
+    onExitTransitionDidStart: function () {
+        cc.log("Item4: start");
     },
 
     back: function () {

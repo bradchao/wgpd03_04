@@ -3,6 +3,8 @@ var Item41Layer = cc.Layer.extend({
     ctor:function () {
         this._super();
 
+        cc.log("Item41:ctor()");
+
         var bg = new cc.Sprite(res.bg_jpeg);
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
@@ -29,6 +31,14 @@ var Item41Layer = cc.Layer.extend({
     back: function () {
         cc.director.popScene();
     },
+
+    onEnterTransitionDidFinish: function () {
+        cc.log("Item41:finish");
+
+    },
+
+
+
 });
 
 var Item41Scene = cc.Scene.extend({
